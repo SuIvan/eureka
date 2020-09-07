@@ -1,1 +1,44 @@
+server:
+  port: 9011
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:9000/eureka
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.cloud.client.ip-address}:${server.port}
+spring:
+  application:
+    name : product
+  datasource:
+    url: jdbc:mysql://localhost:3306/product?useUnicode=true&characterEncoding=utf8&serverTimezone=GMT%2B8&useSSL=false
+    username: root
+    password: 1111
+    driverClassName: com.mysql.cj.jdbc.Driver
+    # 使用druid连接池
+    type: com.alibaba.druid.pool.DruidDataSource
+    # 配置druid连接池
+    initialSize: 5
+    minIdle: 5
+    maxActive: 20
+    maxWait: 60000
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 30000
+    filters: stat
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    poolPreparedStatements: true
+    maxOpenPreparedStatements: 20
+    sql-script-encoding: utf-8
 
+    #配置jpa
+  jpa:
+    #是否显示sql 语句
+    show-sql: true
+    database: MYSQL
+    properties:
+      hibernate:
+        hbm2ddl:
+          # 配置开启自动更新表结构
+          auto: update
